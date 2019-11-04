@@ -34,7 +34,7 @@ public class PartClass : MonoBehaviour
 
     public void Rotate(float Angle)
     {
-        var value = (Angle - RotValue);
+        var value = Angle - RotValue;
 
         if(RotAxis == Axis.x)
         {
@@ -48,14 +48,23 @@ public class PartClass : MonoBehaviour
         {
             transform.Rotate(0, 0, value);
         }
-
+        
         RotValue += value;
     }
 
-
-    public void RotatePart3()
+    public void RotatePart3bySlider2(float slider2)
     {
+        var Part2 = GameObject.Find("LR Mate-200iC axis 2").GetComponent<PartClass>();
+        var Slider3 = GameObject.Find("Slider Axis 3").GetComponent<Slider>();
 
+        var value2 = slider2 - Part2.RotValue;
+        
+        if (Slider3.value + value2 < Slider3.maxValue && Slider3.value + value2 > Slider3.minValue)
+        {
+            transform.Rotate(0, 0, value2);
+
+            RotValue += value2;
+            Slider3.value = RotValue;
+        }
     }
-
 }
