@@ -36,22 +36,23 @@ public class CalcXYZ : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        q1 = Arms[0].GetComponent<Slider>().value * 0.01745329252f;
-        q2 = Arms[1].GetComponent<Slider>().value * 0.01745329252f;
-        q3 = Arms[2].GetComponent<Slider>().value * -0.01745329252f;
-        q4 = Arms[3].GetComponent<Slider>().value * -0.01745329252f;
-        q5 = Arms[4].GetComponent<Slider>().value * -0.01745329252f;
-        q6 = Arms[5].GetComponent<Slider>().value * 0.01745329252f;
+        q1 = Arms[0].GetComponent<Slider>().value * Deg2Rad;
+        q2 = Arms[1].GetComponent<Slider>().value * Deg2Rad;
+        q3 = Arms[2].GetComponent<Slider>().value * Deg2Rad;
+        q4 = Arms[3].GetComponent<Slider>().value * Deg2Rad;
+        q5 = Arms[4].GetComponent<Slider>().value * Deg2Rad;
+        q6 = Arms[5].GetComponent<Slider>().value * Deg2Rad;
+
+        x = d5 * (Cos(q5) * (Cos(q2 + q3) * Cos(q1) * Cos(q2) - Sin(q2 + q3) * Cos(q1) * Sin(q2)) - Sin(q5) * (Cos(q4) * (Cos(q2 + q3) * Cos(q1) * Sin(q2) + Sin(q2 + q3) * Cos(q1) * Cos(q2)) + Sin(q1) * Sin(q4))) + d1 * Cos(q1) + d4 * (Cos(q2 + q3) * Cos(q1) * Cos(q2) - Sin(q2 + q3) * Cos(q1) * Sin(q2)) - d2 * Cos(q1) * Sin(q2) - d3 * Cos(q2 + q3) * Cos(q1) * Sin(q2) - d3 * Sin(q2 + q3) * Cos(q1) * Cos(q2);
+
+        z = d5 * (Cos(q5) * (Cos(q2 + q3) * Cos(q2) * Sin(q1) - Sin(q2 + q3) * Sin(q1) * Sin(q2)) + Sin(q5) * (Cos(q1) * Sin(q4) - Cos(q4) * (Cos(q2 + q3) * Sin(q1) * Sin(q2) + Sin(q2 + q3) * Cos(q2) * Sin(q1)))) + d1 * Sin(q1) + d4 * (Cos(q2 + q3) * Cos(q2) * Sin(q1) - Sin(q2 + q3) * Sin(q1) * Sin(q2)) - d2 * Sin(q1) * Sin(q2) - d3 * Cos(q2 + q3) * Sin(q1) * Sin(q2) - d3 * Sin(q2 + q3) * Cos(q2) * Sin(q1);
+
+        y = d2 * Cos(q2) + d5 * (Cos(q5) * (Cos(q2 + q3) * Sin(q2) + Sin(q2 + q3) * Cos(q2)) + Cos(q4) * Sin(q5) * (Cos(q2 + q3) * Cos(q2) - Sin(q2 + q3) * Sin(q2))) + d4 * (Cos(q2 + q3) * Sin(q2) + Sin(q2 + q3) * Cos(q2)) + d3 * Cos(q2 + q3) * Cos(q2) - d3 * Sin(q2 + q3) * Sin(q2) + d0;
 
 
-
-        x = d5 * (Cos(q5) * (Cos(q2 + q3) * Cos(q1) * Cos(q2) + Sin(q2 + q3) * Cos(q1) * Sin(q2)) + Sin(q5) * (Cos(q4) * (Cos(q2 + q3) * Cos(q1) * Sin(q2) - Sin(q2 + q3) * Cos(q1) * Cos(q2)) - Sin(q1) * Sin(q4))) + d1 * Cos(q1) + d4 * (Cos(q2 + q3) * Cos(q1) * Cos(q2) + Sin(q2 + q3) * Cos(q1) * Sin(q2)) + d2 * Cos(q1) * Sin(q2) + d3 * Cos(q2 + q3) * Cos(q1) * Sin(q2) - d3 * Sin(q2 + q3) * Cos(q1) * Cos(q2);
-
-        z = d5 * (Cos(q5) * (Cos(q2 + q3) * Cos(q2) * Sin(q1) + Sin(q2 + q3) * Sin(q1) * Sin(q2)) + Sin(q5) * (Cos(q1) * Sin(q4) + Cos(q4) * (Cos(q2 + q3) * Sin(q1) * Sin(q2) - Sin(q2 + q3) * Cos(q2) * Sin(q1)))) + d1 * Sin(q1) + d4 * (Cos(q2 + q3) * Cos(q2) * Sin(q1) + Sin(q2 + q3) * Sin(q1) * Sin(q2)) + d2 * Sin(q1) * Sin(q2) + d3 * Cos(q2 + q3) * Sin(q1) * Sin(q2) - d3 * Sin(q2 + q3) * Cos(q2) * Sin(q1);
-
-        y = d2 * Cos(q2) - d5 * (Cos(q5) * (Cos(q2 + q3) * Sin(q2) - Sin(q2 + q3) * Cos(q2)) - Cos(q4) * Sin(q5) * (Cos(q2 + q3) * Cos(q2) + Sin(q2 + q3) * Sin(q2))) - d4 * (Cos(q2 + q3) * Sin(q2) - Sin(q2 + q3) * Cos(q2)) + d3 * Cos(q2 + q3) * Cos(q2) + d3 * Sin(q2 + q3) * Sin(q2) + d0;
 
 
         transform.position = Effector.transform.position;
+        transform.rotation = Effector.transform.rotation;
     }
 }
