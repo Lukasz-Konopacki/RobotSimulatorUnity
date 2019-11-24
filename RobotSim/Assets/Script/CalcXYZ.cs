@@ -7,21 +7,24 @@ using static UnityEngine.Mathf;
 public class CalcXYZ : MonoBehaviour
 {
 
-    private float d0, d1, d2, d3, d4, d5;
+    private float d1, d2, d3, d4, d5, d6;
+    private GameObject[] Arms = new GameObject[6];
+    private GameObject Effector;
+
     public float q1, q2, q3, q4, q5, q6;
     public float x, y, z;
-    public GameObject[] Arms = new GameObject[6];
-    public GameObject Effector;
+    public float nx, ny, nz, mx, my, mz, lx, ly, lz;
+    public float nx1, ny1, nz1, mx1, my1, mz1, lx1, ly1, lz1;
 
 
     void Start()
     {
-        d0 = 0.33f;
-        d1 = 0.075f;
-        d2 = 0.3f;
-        d3 = 0.075f;
-        d4 = 0.32f;
-        d5 = 0.08f;
+        d1 = 0.33f;
+        d2 = 0.075f;
+        d3 = 0.3f;
+        d4 = 0.075f;
+        d5 = 0.32f;
+        d6 = 0.08f;
 
         Arms[0] = GameObject.Find("Slider Axis 1");
         Arms[1] = GameObject.Find("Slider Axis 2");
@@ -30,7 +33,7 @@ public class CalcXYZ : MonoBehaviour
         Arms[4] = GameObject.Find("Slider Axis 5");
         Arms[5] = GameObject.Find("Slider Axis 6");
 
-        Effector = GameObject.Find("LR Mate-200iC axis 6");
+        Effector = GameObject.Find("LR Mate-200iC Part 6");
     }
 
     // Update is called once per frame
@@ -43,16 +46,41 @@ public class CalcXYZ : MonoBehaviour
         q5 = Arms[4].GetComponent<Slider>().value * Deg2Rad;
         q6 = Arms[5].GetComponent<Slider>().value * Deg2Rad;
 
-        x = d5 * (Cos(q5) * (Cos(q2 + q3) * Cos(q1) * Cos(q2) - Sin(q2 + q3) * Cos(q1) * Sin(q2)) - Sin(q5) * (Cos(q4) * (Cos(q2 + q3) * Cos(q1) * Sin(q2) + Sin(q2 + q3) * Cos(q1) * Cos(q2)) + Sin(q1) * Sin(q4))) + d1 * Cos(q1) + d4 * (Cos(q2 + q3) * Cos(q1) * Cos(q2) - Sin(q2 + q3) * Cos(q1) * Sin(q2)) - d2 * Cos(q1) * Sin(q2) - d3 * Cos(q2 + q3) * Cos(q1) * Sin(q2) - d3 * Sin(q2 + q3) * Cos(q1) * Cos(q2);
+        x = d6 * (Cos(q5) * (Cos(q2 + q3) * Cos(q1) * Cos(q2) + Sin(q2 + q3) * Cos(q1) * Sin(q2)) + Sin(q5) * (Cos(q4) * (Cos(q2 + q3) * Cos(q1) * Sin(q2) - Sin(q2 + q3) * Cos(q1) * Cos(q2)) - Sin(q1) * Sin(q4))) + d2 * Cos(q1) + d5 * (Cos(q2 + q3) * Cos(q1) * Cos(q2) + Sin(q2 + q3) * Cos(q1) * Sin(q2)) + d3 * Cos(q1) * Sin(q2) + d4 * Cos(q2 + q3) * Cos(q1) * Sin(q2) - d4 * Sin(q2 + q3) * Cos(q1) * Cos(q2);
 
-        z = d5 * (Cos(q5) * (Cos(q2 + q3) * Cos(q2) * Sin(q1) - Sin(q2 + q3) * Sin(q1) * Sin(q2)) + Sin(q5) * (Cos(q1) * Sin(q4) - Cos(q4) * (Cos(q2 + q3) * Sin(q1) * Sin(q2) + Sin(q2 + q3) * Cos(q2) * Sin(q1)))) + d1 * Sin(q1) + d4 * (Cos(q2 + q3) * Cos(q2) * Sin(q1) - Sin(q2 + q3) * Sin(q1) * Sin(q2)) - d2 * Sin(q1) * Sin(q2) - d3 * Cos(q2 + q3) * Sin(q1) * Sin(q2) - d3 * Sin(q2 + q3) * Cos(q2) * Sin(q1);
+        z = d6 * (Cos(q5) * (Cos(q2 + q3) * Cos(q2) * Sin(q1) + Sin(q2 + q3) * Sin(q1) * Sin(q2)) + Sin(q5) * (Cos(q1) * Sin(q4) + Cos(q4) * (Cos(q2 + q3) * Sin(q1) * Sin(q2) - Sin(q2 + q3) * Cos(q2) * Sin(q1)))) + d2 * Sin(q1) + d5 * (Cos(q2 + q3) * Cos(q2) * Sin(q1) + Sin(q2 + q3) * Sin(q1) * Sin(q2)) + d3 * Sin(q1) * Sin(q2) + d4 * Cos(q2 + q3) * Sin(q1) * Sin(q2) - d4 * Sin(q2 + q3) * Cos(q2) * Sin(q1);
 
-        y = d2 * Cos(q2) + d5 * (Cos(q5) * (Cos(q2 + q3) * Sin(q2) + Sin(q2 + q3) * Cos(q2)) + Cos(q4) * Sin(q5) * (Cos(q2 + q3) * Cos(q2) - Sin(q2 + q3) * Sin(q2))) + d4 * (Cos(q2 + q3) * Sin(q2) + Sin(q2 + q3) * Cos(q2)) + d3 * Cos(q2 + q3) * Cos(q2) - d3 * Sin(q2 + q3) * Sin(q2) + d0;
-
-
-
+        y = d1 + d3 * Cos(q2) - d6 * (Cos(q5) * (Cos(q2 + q3) * Sin(q2) - Sin(q2 + q3) * Cos(q2)) - Cos(q4) * Sin(q5) * (Cos(q2 + q3) * Cos(q2) + Sin(q2 + q3) * Sin(q2))) - d5 * (Cos(q2 + q3) * Sin(q2) - Sin(q2 + q3) * Cos(q2)) + d4 * Cos(q2 + q3) * Cos(q2) + d4 * Sin(q2 + q3) * Sin(q2);
 
         transform.position = Effector.transform.position;
         transform.rotation = Effector.transform.rotation;
+
+        var qx = transform.rotation.x;
+        var qy = transform.rotation.y;
+        var qz = transform.rotation.z;
+        var qw = transform.rotation.w;
+
+        lx = Round(1000 * (qw * qw + qx * qx - qz * qz - qy * qy)) / 1000;
+        nz = Round(1000 * (qy * qy - qz * qz + qw * qw - qx * qx)) / 1000;
+        my = Round(1000 * (qz * qz - qy * qy - qx * qx + qw * qw)) / 1000;
+        nx = Round(1000 * (-qz * qw + qy * qx - qw * qz + qx * qy))/ 1000;
+        mx = Round(1000 * (qy * qw + qz * qx + qx * qz + qw * qy)) / 1000;
+        lz = Round(1000 * (qx * qy + qw * qz + qz * qw + qy * qx)) / 1000;
+        mz = Round(1000 * (qz * qy + qy * qz - qx * qw - qw * qx)) / 1000;
+        ly = Round(1000 * (qx * qz - qw * qy + qz * qx - qy * qw)) / 1000;
+        ny = Round(1000 * (qy * qz + qz * qy + qw * qx + qx * qw)) / 1000;
+
+        lx1 = -Cos(q6) * (Sin(q5) * (Cos(q2 + q3) * Cos(q1) * Cos(q2) + Sin(q2 + q3) * Cos(q1) * Sin(q2)) - Cos(q5) * (Cos(q4) * (Cos(q2 + q3) * Cos(q1) * Sin(q2) - Sin(q2 + q3) * Cos(q1) * Cos(q2)) - Sin(q1) * Sin(q4))) - Sin(q6) * (Cos(q4) * Sin(q1) + Sin(q4) * (Cos(q2 + q3) * Cos(q1) * Sin(q2) - Sin(q2 + q3) * Cos(q1) * Cos(q2)));
+        ly1 = Sin(q6) * (Cos(q1) * Cos(q4) - Sin(q4) * (Cos(q2 + q3) * Sin(q1) * Sin(q2) - Sin(q2 + q3) * Cos(q2) * Sin(q1))) - Cos(q6) * (Sin(q5) * (Cos(q2 + q3) * Cos(q2) * Sin(q1) + Sin(q2 + q3) * Sin(q1) * Sin(q2)) - Cos(q5) * (Cos(q1) * Sin(q4) + Cos(q4) * (Cos(q2 + q3) * Sin(q1) * Sin(q2) - Sin(q2 + q3) * Cos(q2) * Sin(q1))));
+        lz1 = Cos(q6) * (Sin(q5) * (Cos(q2 + q3) * Sin(q2) - Sin(q2 + q3) * Cos(q2)) + Cos(q4) * Cos(q5) * (Cos(q2 + q3) * Cos(q2) + Sin(q2 + q3) * Sin(q2))) - Sin(q4) * Sin(q6) * (Cos(q2 + q3) * Cos(q2) + Sin(q2 + q3) * Sin(q2));
+        mx1 = Sin(q6) * (Sin(q5) * (Cos(q2 + q3) * Cos(q1) * Cos(q2) + Sin(q2 + q3) * Cos(q1) * Sin(q2)) - Cos(q5) * (Cos(q4) * (Cos(q2 + q3) * Cos(q1) * Sin(q2) - Sin(q2 + q3) * Cos(q1) * Cos(q2)) - Sin(q1) * Sin(q4))) - Cos(q6) * (Cos(q4) * Sin(q1) + Sin(q4) * (Cos(q2 + q3) * Cos(q1) * Sin(q2) - Sin(q2 + q3) * Cos(q1) * Cos(q2)));
+        my1 = Sin(q6) * (Sin(q5) * (Cos(q2 + q3) * Cos(q2) * Sin(q1) + Sin(q2 + q3) * Sin(q1) * Sin(q2)) - Cos(q5) * (Cos(q1) * Sin(q4) + Cos(q4) * (Cos(q2 + q3) * Sin(q1) * Sin(q2) - Sin(q2 + q3) * Cos(q2) * Sin(q1)))) + Cos(q6) * (Cos(q1) * Cos(q4) - Sin(q4) * (Cos(q2 + q3) * Sin(q1) * Sin(q2) - Sin(q2 + q3) * Cos(q2) * Sin(q1)));
+        mz1 = -Sin(q6) * (Sin(q5) * (Cos(q2 + q3) * Sin(q2) - Sin(q2 + q3) * Cos(q2)) + Cos(q4) * Cos(q5) * (Cos(q2 + q3) * Cos(q2) + Sin(q2 + q3) * Sin(q2))) - Cos(q6) * Sin(q4) * (Cos(q2 + q3) * Cos(q2) + Sin(q2 + q3) * Sin(q2));
+        nx1 = -Cos(q5) * (Cos(q2 + q3) * Cos(q1) * Cos(q2) + Sin(q2 + q3) * Cos(q1) * Sin(q2)) - Sin(q5) * (Cos(q4) * (Cos(q2 + q3) * Cos(q1) * Sin(q2) - Sin(q2 + q3) * Cos(q1) * Cos(q2)) - Sin(q1) * Sin(q4));
+        ny1 = -Cos(q5) * (Cos(q2 + q3) * Cos(q2) * Sin(q1) + Sin(q2 + q3) * Sin(q1) * Sin(q2)) - Sin(q5) * (Cos(q1) * Sin(q4) + Cos(q4) * (Cos(q2 + q3) * Sin(q1) * Sin(q2) - Sin(q2 + q3) * Cos(q2) * Sin(q1)));
+        nz1 = Cos(q5) * (Cos(q2 + q3) * Sin(q2) - Sin(q2 + q3) * Cos(q2)) - Cos(q4) * Sin(q5) * (Cos(q2 + q3) * Cos(q2) + Sin(q2 + q3) * Sin(q2));
+
+
+
     }
 }

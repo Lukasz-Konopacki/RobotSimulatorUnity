@@ -11,7 +11,7 @@ public class GetXYZ : MonoBehaviour
     void Start()
     {
         TextBox = gameObject.GetComponent<Text>();
-        LastJoint = GameObject.Find("LR Mate-200iC axis 6");
+        LastJoint = GameObject.Find("LR Mate-200iC Part 6");
     }
 
     // Update is called once per frame

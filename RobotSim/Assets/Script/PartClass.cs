@@ -5,8 +5,6 @@ using UnityEngine.UI;
 
 public class PartClass : MonoBehaviour
 {
-    public enum Axis { x, y, z };
-
     public GameObject part;
     public float RotValue;
 
@@ -21,29 +19,17 @@ public class PartClass : MonoBehaviour
     {
         var value = Angle - RotValue;
 
-        if(part.GetComponent<ConfigurableJoint>().angularXMotion == ConfigurableJointMotion.Free)
-        {
-            transform.Rotate(value, 0, 0);
-        }
-        else if (part.GetComponent<ConfigurableJoint>().angularYMotion == ConfigurableJointMotion.Free)
-        {
-            transform.Rotate(0, -value, 0);
-        }
-        else if (part.GetComponent<ConfigurableJoint>().angularZMotion == ConfigurableJointMotion.Free)
-        {
-            transform.Rotate(0, 0, value);   
-        }
+        transform.Rotate(0, -value, 0);
         
         RotValue += value;
     }
 
     public void RotatePart3bySlider2(float Angle)
     {
+        var Part2 = GameObject.Find("LR Mate-200iC Part 2");
 
-        var Part2 = GameObject.Find("LR Mate-200iC axis 2").GetComponent<PartClass>();
+        var value = Angle - Part2.GetComponent<PartClass>().RotValue;
 
-        var RotValue = Angle - Part2.RotValue;
-        
-        transform.Rotate(0, 0, RotValue);
+        transform.Rotate(0, -value, 0);
     }
 }
