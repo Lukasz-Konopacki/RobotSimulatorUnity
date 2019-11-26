@@ -94,6 +94,22 @@ public class MoveCube : MonoBehaviour
         Part[1].GetComponent<PartClass>().Rotate(q2 * Rad2Deg);
         Part[2].GetComponent<PartClass>().Rotate((q3 +q2) * Rad2Deg);
 
+        ///// Czesc Orientacyjna /////
+
+        var l3x = Cos(q2 + q3) * Cos(q1) * Sin(q2) - Sin(q2 + q3) * Cos(q1) * Cos(q2);
+        var n3z = Cos(q2 + q3) * Sin(q2) - Sin(q2 + q3) * Cos(q2);
+        var n3x = -Cos(q2 + q3) * Cos(q1) * Cos(q2) - Sin(q2 + q3) * Cos(q1) * Sin(q2);
+        var l3z = Cos(q2 + q3) * Cos(q2) + Sin(q2 + q3) * Sin(q2);
+        var l3y = Cos(q2 + q3) * Sin(q1) * Sin(q2) - Sin(q2 + q3) * Cos(q2) * Sin(q1);
+        var n3y = -Cos(q2 + q3) * Cos(q2) * Sin(q1) - Sin(q2 + q3) * Sin(q1) * Sin(q2);
+
+        /// q5 ///
+
+        W = Round((n3x * nx + n3y * ny + n3z * nz) * 100000) / 100000; // Zaokrąglam by dla wartości 0 się zgadzało
+
+
+        q5 = Acos(W);
+
 
     }
 }

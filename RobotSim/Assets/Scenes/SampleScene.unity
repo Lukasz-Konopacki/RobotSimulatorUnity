@@ -3256,7 +3256,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 775083413}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ca5a760fcb152004ebdcdf82a7dfa8c6, type: 3}
   m_Name: 
@@ -3274,11 +3274,21 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 775083413}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: cedd7bea89b788743aa24aff73b58b93, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nx: 0
+  ny: 0
+  nz: 0
+  mx: 0
+  my: 0
+  mz: 0
+  lx: 0
+  ly: 0
+  lz: 0
+  Watch: 0
   q1: 0
   q2: 0
   q3: 0
@@ -3298,7 +3308,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 775083413}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 21799e9821789c74c865c4cd90b13736, type: 3}
   m_Name: 
@@ -4609,6 +4619,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   PanelFor: {fileID: 1979248975}
   PanelInv: {fileID: 1820723015}
+  Cube: {fileID: 775083413}
 --- !u!1 &1055900402
 GameObject:
   m_ObjectHideFlags: 0

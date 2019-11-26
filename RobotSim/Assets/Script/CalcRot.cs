@@ -8,7 +8,8 @@ public class CalcRot : MonoBehaviour
 {
     private float d1, d2, d3, d4, d5, d6;   
     private GameObject[] Sliders = new GameObject[6];
-    private float nx, ny, nz, mx, my, mz, lx, ly, lz;
+    public float nx, ny, nz, mx, my, mz, lx, ly, lz;
+    public float Watch; 
 
     public float q1, q2, q3, q4, q5, q6;
     public float q1Calc, q2Calc, q3Calc, q4Calc, q5Calc, q6Calc;
@@ -98,6 +99,8 @@ public class CalcRot : MonoBehaviour
 
         W = Round((n3x * nx + n3y * ny + n3z * nz) * 100000) / 100000; // Zaokrąglam by dla wartości 0 się zgadzało
         q5Calc = Acos(W);
+
+        Watch = -lx;
 
 
         /// q4 ///  
