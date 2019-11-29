@@ -9,7 +9,6 @@ public class CalcRot : MonoBehaviour
     private float d1, d2, d3, d4, d5, d6;   
     private GameObject[] Sliders = new GameObject[6];
     public float nx, ny, nz, mx, my, mz, lx, ly, lz;
-    public float Watch; 
 
     public float q1, q2, q3, q4, q5, q6;
     public float q1Calc, q2Calc, q3Calc, q4Calc, q5Calc, q6Calc;
@@ -94,34 +93,58 @@ public class CalcRot : MonoBehaviour
         var l3z = Cos(q2 + q3) * Cos(q2) + Sin(q2 + q3) * Sin(q2);
         var l3y = Cos(q2 + q3) * Sin(q1) * Sin(q2) - Sin(q2 + q3) * Cos(q2) * Sin(q1);
         var n3y = -Cos(q2 + q3) * Cos(q2) * Sin(q1) - Sin(q2 + q3) * Sin(q1) * Sin(q2);
+        var m3x = -Sin(q1);
+        var m3y = Cos(q1);
+        var m3z = 0;
 
         /// q5 ///
 
         W = Round((n3x * nx + n3y * ny + n3z * nz) * 100000) / 100000; // Zaokrąglam by dla wartości 0 się zgadzało
         q5Calc = Acos(W);
 
-        Watch = -lx;
 
 
         /// q4 ///  
 
-        if (q5Calc == 0)
-            q4Calc = 0;
-        else
-            W = Round((l3x * nx + l3y * ny + l3z * nz) / Sin(q5Calc) * 100000) / 100000; // Zaokrąglam by dla wartości 0 się zgadzało
-            q4Calc = Acos(W);
+            B = (m3x * nx + m3y * ny + m3z * nz);
+            A = (l3x * nx + l3y * ny + l3z * nz);
 
-        /// q6 ///
-
-        if (q5Calc == 0)
+        if(q5Calc == 0)
         {
-            W = Round((l3x * lx + l3y * ly + l3z * lz * 100000)) / 100000;
-            q6Calc = Acos(W);
+            q4Calc = 0;
+        }
+        else if(Atan2(B, A) > 0)
+        {
+            q4Calc = Atan2(B, A) - 3.14f;
         }
         else
-            q6Calc = Asin(-(mx * n3x + my * n3y + mz * n3z) / Sin(q5Calc));
+        {
+            q4Calc = Atan2(B, A) + 3.14f;
+        }
+        /// q6 /// 
 
+        A = (Sin(q4) * (l3x * lx + l3y * ly + l3z * lz) - Cos(q4) * (lx * m3x + ly * m3y + lz * m3z));
+        W  = Sin(q4) * (l3x * mx + l3y * my + l3z * mz) - Cos(q4) * (m3x * mx + m3y * my + m3z * mz);
 
-    
+        if(W > 1 || W < -1)
+        {
+            q6Calc = 0;
+        }
+        else
+        {
+            q6Calc = Acos(W) - PI;
+        }
+        if (A < 0)
+        {
+            q6Calc = -q6Calc;
+        }
+
+        
+        W = (l3x * nx + l3y * ny + l3z * nz) + Sin(q4) * (m3x * nx + m3y * ny + m3z * nz);
+        if(W > 0)
+        {
+            q5Calc = -q5Calc;
+        }
+
     }
 }
