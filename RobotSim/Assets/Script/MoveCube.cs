@@ -150,36 +150,42 @@ public class MoveCube : MonoBehaviour
         }
 
 
-        q1 = q1 * Rad2Deg;
-        q2 = q2 * Rad2Deg;
-        q3 = q3 * Rad2Deg;
-        q4 = q4 * Rad2Deg;
-        q5 = q5 * Rad2Deg;
-        q6 = q6 * Rad2Deg;
+        q1 *= Rad2Deg;
+        q2 *= Rad2Deg;
+        q3 *= Rad2Deg;
+        q4 *= Rad2Deg;
+        q5 *= Rad2Deg;
+        q6 *= Rad2Deg;
 
         if(float.IsNaN(q1)|| float.IsNaN(q2)|| float.IsNaN(q3)|| float.IsNaN(q4)|| float.IsNaN(q5)|| float.IsNaN(q6))
         {
             Panel.SetActive(true);
+            Debug.Log("jeden z katow nie jest liczba");
         }
         else if(q1 > 180 || q1 < -180)
         {
             Panel.SetActive(true);
+            Debug.Log($"q1 ma zła wartość: {q1}");
         }
         else if(q2 > 140 || q2 < -60 )
         {
             Panel.SetActive(true);
+            Debug.Log($"q2 ma zła wartość: {q2}");
         }
         else if(q3 > 185 || q2 < -72)
         {
             Panel.SetActive(true);
+            Debug.Log($"q3 ma zła wartość: {q3}");
         }
         else if(q4 > 190 || q4 < -190)
         {
             Panel.SetActive(true);
+            Debug.Log($"q4 ma zła wartość: {q4}");
         }
         else if(q5 > 120 || q5 < -120)
         {
             Panel.SetActive(true);
+            Debug.Log($"q5 ma zła wartość: {q5}");
         }
         else
         {

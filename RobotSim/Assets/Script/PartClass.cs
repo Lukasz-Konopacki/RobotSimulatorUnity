@@ -18,10 +18,9 @@ public class PartClass : MonoBehaviour
     public void Rotate(float Angle)
     {
         var value = Angle - RotValue;
-        transform.Rotate(0, -value, 0);      
+        transform.Rotate(0, -value, 0);
         RotValue += value;
     }
-
     public void RotatePart3bySlider2(float Angle)
     {
         var Part3 = GameObject.Find("LR Mate-200iC Part 3").GetComponent<PartClass>();

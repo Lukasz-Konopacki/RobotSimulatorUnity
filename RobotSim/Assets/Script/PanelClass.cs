@@ -2,18 +2,26 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEngine.Mathf;
 
-public class SwitchPanel : MonoBehaviour
+public class PanelClass : MonoBehaviour
 {
     public GameObject PanelFor;
     public GameObject PanelInv;
     public GameObject Cube;
-    public GameObject Button;
-    private Slider[] SlidersFor = new Slider[6];
-    private Slider[] SlidersInv = new Slider[6];
-    private PartClass[] Parts = new PartClass[6];
+    public GameObject SwitchButton;
+    private Slider[] SlidersFor;
+    private Slider[] SlidersInv;
+    private PartClass[] Parts;
+    private float[] SaveRotateValue;
+
     public void Start()
     {
+        SlidersFor = new Slider[6];
+        SlidersInv = new Slider[6];
+        Parts = new PartClass[6];
+        SaveRotateValue = new float[6];
+
         SlidersFor[0] = GameObject.Find("Slider Axis 1").GetComponent<Slider>();
         SlidersFor[1] = GameObject.Find("Slider Axis 2").GetComponent<Slider>();
         SlidersFor[2] = GameObject.Find("Slider Axis 3").GetComponent<Slider>();
@@ -37,8 +45,6 @@ public class SwitchPanel : MonoBehaviour
 
         PanelInv.SetActive(false);
     }
-
-
     public void Reset()
     {
         if (PanelFor.activeSelf == true)
@@ -51,9 +57,40 @@ public class SwitchPanel : MonoBehaviour
         }
         else
         {
-            
+            SlidersInv[0].value = 0.475f;
+            SlidersInv[1].value = 0.705f;
+            SlidersInv[2].value = 0;
+            SlidersInv[3].value = 0;
+            SlidersInv[4].value = 0;
+            SlidersInv[5].value = 90;
+
         }
     }
+    public void SavePosition()
+    {
+        for(int i = 0; i <6; i++)
+        {
+            SaveRotateValue[i] = Parts[i].RotValue;
+        }
+    }
+
+    public void LoadPosition()
+    {
+        if (PanelFor.activeSelf == true)
+        {
+            for (int i = 0; i < 6; i++)
+            {
+                SlidersFor[i].value = SaveRotateValue[i];
+                Parts[i].RotValue = SaveRotateValue[i];
+            }
+        }
+        else
+        {
+
+        }
+    }
+
+
     public void PanelVisibility()
     {
         if (PanelFor.activeSelf == true)
@@ -65,16 +102,38 @@ public class SwitchPanel : MonoBehaviour
             Cube.GetComponent<CalcRot>().enabled = false;
             Cube.GetComponent<CalcXYZ>().enabled = false;
 
-            Button.GetComponent<Text>().text = "Zadanie Proste";
+            SwitchButton.GetComponent<Text>().text = "Zadanie Proste";
 
-            SlidersInv[0].value = Cube.transform.position.x;
-            SlidersInv[1].value = Cube.transform.position.y;
-            SlidersInv[2].value = Cube.transform.position.z;
-            SlidersInv[3].value = Cube.transform.rotation.eulerAngles.x;
-            SlidersInv[4].value = Cube.transform.rotation.eulerAngles.y;
-            SlidersInv[5].value = Cube.transform.rotation.eulerAngles.z;
+            SlidersInv[0].value = Round(Cube.transform.position.x * 10000)/10000;
+            SlidersInv[1].value = Round(Cube.transform.position.y * 10000) / 10000;
+            SlidersInv[2].value = Round(Cube.transform.position.z * 10000) / 10000;
 
-            Debug.Log($"{Cube.transform.rotation.eulerAngles.x}, {Cube.transform.rotation.eulerAngles.y}, {Cube.transform.rotation.eulerAngles.z}");
+            if (Cube.transform.rotation.eulerAngles.x > 180)
+            {
+                SlidersInv[3].value = SlidersInv[3].value = Cube.transform.rotation.eulerAngles.x - 360;
+            }
+            else
+            {
+                SlidersInv[3].value = Cube.transform.rotation.eulerAngles.x;
+            }
+            if (Cube.transform.rotation.eulerAngles.y > 180)
+            {
+                SlidersInv[4].value = Cube.transform.rotation.eulerAngles.y - 360;
+            }
+            else
+            {
+                SlidersInv[4].value = Cube.transform.rotation.eulerAngles.y;
+            }
+            if (Cube.transform.rotation.eulerAngles.z > 180)
+            {
+                SlidersInv[5].value = Cube.transform.rotation.eulerAngles.z - 360;
+            }
+            else
+            {
+                SlidersInv[5].value = Cube.transform.rotation.eulerAngles.z;
+            }
+
+            Debug.Log($"{SlidersInv[3].value }, {SlidersInv[4].value }, {SlidersInv[5].value }");
 
         }
         else
@@ -86,7 +145,7 @@ public class SwitchPanel : MonoBehaviour
             Cube.GetComponent<CalcRot>().enabled = true;
             Cube.GetComponent<CalcXYZ>().enabled = true;
 
-            Button.GetComponent<Text>().text = "Zadanie Odwrotne";
+            SwitchButton.GetComponent<Text>().text = "Zadanie Odwrotne";
 
             for(int i = 0; i < 6; i++)
             {
@@ -94,4 +153,6 @@ public class SwitchPanel : MonoBehaviour
             }
         }         
     }
+
+
 }

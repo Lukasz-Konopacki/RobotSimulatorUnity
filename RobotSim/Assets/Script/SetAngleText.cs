@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEngine.Mathf;
 
 public class SetAngleText : MonoBehaviour
 {
@@ -10,6 +11,6 @@ public class SetAngleText : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        gameObject.GetComponent<Text>().text = part.GetComponent<PartClass>().RotValue.ToString() + "°";
+        gameObject.GetComponent<Text>().text = Round(part.GetComponent<PartClass>().RotValue).ToString() + "°";
     }
 }
