@@ -21,7 +21,13 @@ public class GetXYZ : MonoBehaviour
         var y = Mathf.Round(LastJoint.transform.position.y * 100f);
         var z = Mathf.Round(LastJoint.transform.position.z * 100f);
 
-        TextBox.text = $"X:{x} Y:{y} Z:{z}";
+        var Rotx = Mathf.Round(LastJoint.transform.rotation.eulerAngles.x);
+        var Roty = Mathf.Round(LastJoint.transform.rotation.eulerAngles.y);
+        var Rotz = Mathf.Round(LastJoint.transform.rotation.eulerAngles.z);
+
+
+        TextBox.text = $"X:{x} Y:{y} Z:{z}\n" +
+                       $"Rx:{Rotx} Ry:{Roty} Rz:{Rotz}";
 
     }
 }
