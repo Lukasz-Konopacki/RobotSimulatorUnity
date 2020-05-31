@@ -1,2 +1,1 @@
-# Thesis
-Robot Simulator in Unity 
+# Robot Simulator in Unity
